@@ -1,21 +1,21 @@
-# Constraint-Based-Sampling — Guide de lancement
+# Constraint-Based-Sampling — Run Guide
 
-Ce README explique comment lancer :
+This README explains how to run:
 - `CFIPS`
 - `CHFIPS`
-- les expérimentations **avec rejet** (`IPRejet` et `RandomIPRejet`)
+- the **rejection-based** experiments (`IPRejet` and `RandomIPRejet`)
 
-## 1) Prérequis
+## 1) Prerequisites
 
-- Java 17+ (ou version compatible avec votre IDE)
-- Le dossier de données doit exister au chemin attendu par `Main.java` :
-  - `../Normalized_data/benchmark/<NOM_BDD>_T.dat`
+- Java 17+ (or any version compatible with your IDE)
+- The dataset folder must exist at the path expected by `Main.java`:
+  - `../Normalized_data/benchmark/<DATASET_NAME>_T.dat`
 
-> Exemple : si vous exécutez depuis la racine du projet, `Main.java` lit `../Normalized_data/benchmark/NT_T.dat`.
+> Example: if you run from the project root, `Main.java` reads `../Normalized_data/benchmark/NT_T.dat`.
 
-## 2) Compiler et exécuter
+## 2) Compile and run
 
-Depuis la racine du projet :
+From the project root:
 
 ```bash
 rm -rf out
@@ -24,22 +24,22 @@ javac -d out src/ConstraintList/*.java src/ConstraintNewList/*.java src/*.java
 java -cp out Main
 ```
 
-## 3) Sélectionner la base de données
+## 3) Select the dataset
 
-Dans `src/Main.java`, ajuster la liste :
+In `src/Main.java`, adjust the list:
 
 ```java
 String [] databases={"NT"};
 ```
 
-Vous pouvez mettre plusieurs bases (ex. `"AP", "NT", "glass"`).
+You can include multiple datasets (e.g., `"AP", "NT", "glass"`).
 
 ---
 
-## 4) Lancer CFIPS (construit sous contraintes)
+## 4) Run CFIPS (constraint-based)
 
-### A. Définir une requête de contraintes (`ConstraintList`)
-Dans `src/Main.java`, créer une `query` :
+### A. Define a constraint query (`ConstraintList`)
+In `src/Main.java`, create a `query`:
 
 ```java
 ArrayList<Constraint> query = new ArrayList<>();
@@ -48,8 +48,8 @@ query.add(new InfEq(2, 18));
 query.add(new Inclusion(1, 1));
 ```
 
-### B. Activer l’expérimentation CFIPS
-Toujours dans `src/Main.java`, activer :
+### B. Enable the CFIPS experiment
+Still in `src/Main.java`, enable:
 
 ```java
 e.evolutionTempsCPUConstrainedIP(
@@ -61,22 +61,22 @@ e.evolutionTempsCPUConstrainedIP(
 );
 ```
 
-Résultat attendu : CSV dans `results/CpuEvolution/ConstrainedIP/...`.
+Expected output: CSV file in `results/CpuEvolution/ConstrainedIP/...`.
 
 ---
 
-## 5) Lancer CHFIPS
+## 5) Run CHFIPS
 
-`CHFIPS` utilise les contraintes du package `ConstraintNewList`.
+`CHFIPS` uses constraints from the `ConstraintNewList` package.
 
-### A. Ajouter l’import dans `src/Main.java`
-En haut du fichier, ajouter :
+### A. Add the import in `src/Main.java`
+At the top of the file, add:
 
 ```java
 import ConstraintNewList.*;
 ```
 
-### B. Définir une requête `ConstraintNewList`
+### B. Define a `ConstraintNewList` query
 
 ```java
 ArrayList<ConstraintNewList.Constraint> queryNew = new ArrayList<>();
@@ -85,7 +85,7 @@ queryNew.add(new ConstraintNewList.Sup(0, 15));
 queryNew.add(new ConstraintNewList.Inclusion(1, 1));
 ```
 
-### C. Activer l’évaluation CHFIPS
+### C. Enable CHFIPS evaluation
 
 ```java
 e.evaluateCHFIPSNumberOfDraws(
@@ -98,19 +98,19 @@ e.evaluateCHFIPSNumberOfDraws(
 );
 ```
 
-Résultat attendu : fichier texte/CSV dans `results/NBDrawsAndCPU/CHFIPS/...`.
+Expected output: text/CSV file in `results/NBDrawsAndCPU/CHFIPS/...`.
 
 ---
 
-## 6) Lancer les expérimentations avec rejet
+## 6) Run rejection-based experiments
 
-Les deux méthodes concernées sont dans `Evaluation.java` :
-- `evolutionTempsCPUIPRejet(...)` (échantillonnage FIPS + filtre de contraintes)
-- `evolutionTempsCPURandomIPRejet(...)` (échantillonnage random + filtre de contraintes)
+The related methods are in `Evaluation.java`:
+- `evolutionTempsCPUIPRejet(...)` (FIPS sampling + constraint filtering)
+- `evolutionTempsCPURandomIPRejet(...)` (random sampling + constraint filtering)
 
 ### Important
-Dans `src/Main.java`, les appels commentés existants ont une signature incomplète.
-Les bonnes signatures prennent **5 paramètres** : `(seed, k, query, db, output)`.
+In `src/Main.java`, some commented calls still use an outdated/incomplete signature.
+The correct method signature has **5 parameters**: `(seed, k, query, db, output)`.
 
 ### A. IPRejet
 
@@ -138,15 +138,15 @@ e.evolutionTempsCPURandomIPRejet(
 );
 ```
 
-Résultats attendus :
+Expected outputs:
 - `results/CpuEvolution/IPRejet/...`
 - `results/CpuEvolution/RandomIPRejet/...`
 
 ---
 
-## 7) Conseils pratiques
+## 7) Practical tips
 
-- Démarrer avec une base (`NT`) et peu de contraintes (2–3).
-- Éviter d’activer trop d’expériences en même temps au début (un bloc à la fois).
-- Vérifier que les dossiers de sortie existent, sinon les créer avant exécution.
-- Si une requête est trop restrictive, vous pouvez obtenir un timeout ou très peu de motifs acceptés.
+- Start with one dataset (`NT`) and a small query (2–3 constraints).
+- Avoid enabling too many experiments at once in the beginning (run one block at a time).
+- Ensure output folders exist before running.
+- If a query is too restrictive, you may get timeouts or very few accepted patterns.
