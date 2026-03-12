@@ -1,0 +1,11 @@
+constraintNumber,query,resultNbDraws,resultCPUTime,resultFrequency
+1,"[Inf(m':  3, v': 65.0)]",655.9,1.9822,0.08618224299065419
+2,"[Inf(m':  3, v': 65.0), Inf(m':  7, v': 31.0)]",796.4,2.435,0.0873364485981308
+3,"[Inf(m':  3, v': 65.0), Inf(m':  7, v': 31.0), Sup(m':  5, v': 9.0)]",TO,TO,TO
+4,"[Inf(m':  3, v': 65.0), Inf(m':  7, v': 31.0), Sup(m':  5, v': 9.0), SupEq(m':  2, v': 4.0)]",TO,TO,TO
+5,"[Inf(m':  3, v': 65.0), Inf(m':  7, v': 31.0), Sup(m':  5, v': 9.0), SupEq(m':  2, v': 4.0), Inf(m':  3, v': 64.0)]",TO,TO,TO
+6,"[Inf(m':  3, v': 65.0), Inf(m':  7, v': 31.0), Sup(m':  5, v': 9.0), SupEq(m':  2, v': 4.0), Inf(m':  3, v': 64.0), SupEq(m':  4, v': 66.0)]",TO,TO,TO
+7,"[Inf(m':  3, v': 65.0), Inf(m':  7, v': 31.0), Sup(m':  5, v': 9.0), SupEq(m':  2, v': 4.0), Inf(m':  3, v': 64.0), SupEq(m':  4, v': 66.0), SupEq(m':  1, v': 57.0)]",TO,TO,TO
+8,"[Inf(m':  3, v': 65.0), Inf(m':  7, v': 31.0), Sup(m':  5, v': 9.0), SupEq(m':  2, v': 4.0), Inf(m':  3, v': 64.0), SupEq(m':  4, v': 66.0), SupEq(m':  1, v': 57.0), Inf(m':  6, v': 86.0)]",TO,TO,TO
+9,"[Inf(m':  3, v': 65.0), Inf(m':  7, v': 31.0), Sup(m':  5, v': 9.0), SupEq(m':  2, v': 4.0), Inf(m':  3, v': 64.0), SupEq(m':  4, v': 66.0), SupEq(m':  1, v': 57.0), Inf(m':  6, v': 86.0), InfEq(m':  0, v': 79.0)]",TO,TO,TO
+10,"[Inf(m':  3, v': 65.0), Inf(m':  7, v': 31.0), Sup(m':  5, v': 9.0), SupEq(m':  2, v': 4.0), Inf(m':  3, v': 64.0), SupEq(m':  4, v': 66.0), SupEq(m':  1, v': 57.0), Inf(m':  6, v': 86.0), InfEq(m':  0, v': 79.0), Inf(m':  0, v': 71.0)]",TO,TO,TO

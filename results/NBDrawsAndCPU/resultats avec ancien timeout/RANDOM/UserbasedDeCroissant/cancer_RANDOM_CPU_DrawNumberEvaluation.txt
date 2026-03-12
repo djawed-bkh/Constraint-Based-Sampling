@@ -1,0 +1,3 @@
+{constraintNumber=1, resultCPUTime=0.1958, query=[SupEq(m':  4, v': 100)], resultNbDraws=5968.1}
+{constraintNumber=2, resultCPUTime=0.2455, query=[SupEq(m':  4, v': 100), InfEq(m':  5, v': 106)], resultNbDraws=7439.9}
+{constraintNumber=3, resultCPUTime=3.7525999999999997, query=[SupEq(m':  4, v': 100), InfEq(m':  5, v': 106), Sup(m':  7, v': 86)], resultNbDraws=113649.0}

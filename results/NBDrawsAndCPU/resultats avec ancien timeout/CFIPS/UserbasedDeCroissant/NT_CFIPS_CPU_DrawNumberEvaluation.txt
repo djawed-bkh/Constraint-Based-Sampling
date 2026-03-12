@@ -1,0 +1,10 @@
+{constraintNumber=1, resultCPUTime=7.0E-4, query=[Inf(m':  0, v': 4)], resultNbDraws=100.0}
+{constraintNumber=2, resultCPUTime=7.0E-4, query=[Inf(m':  0, v': 4), Inf(m':  2, v': 20)], resultNbDraws=100.0}
+{constraintNumber=3, resultCPUTime=6.0E-4, query=[Inf(m':  0, v': 4), Inf(m':  2, v': 20), Exc(m':  1, v': 0)], resultNbDraws=100.0}
+{constraintNumber=4, resultCPUTime=7.0E-4, query=[Inf(m':  0, v': 4), Inf(m':  2, v': 20), Exc(m':  1, v': 0), Inf(m':  0, v': 29)], resultNbDraws=100.0}
+{constraintNumber=5, resultCPUTime=6.0E-4, query=[Inf(m':  0, v': 4), Inf(m':  2, v': 20), Exc(m':  1, v': 0), Inf(m':  0, v': 29), InfEq(m':  2, v': 4)], resultNbDraws=100.0}
+{constraintNumber=6, resultCPUTime=7.0E-4, query=[Inf(m':  0, v': 4), Inf(m':  2, v': 20), Exc(m':  1, v': 0), Inf(m':  0, v': 29), InfEq(m':  2, v': 4), Exc(m':  1, v': 0)], resultNbDraws=100.0}
+{constraintNumber=7, resultCPUTime=8.0E-4, query=[Inf(m':  0, v': 4), Inf(m':  2, v': 20), Exc(m':  1, v': 0), Inf(m':  0, v': 29), InfEq(m':  2, v': 4), Exc(m':  1, v': 0), InfEq(m':  0, v': 3)], resultNbDraws=100.0}
+{constraintNumber=8, resultCPUTime=8.0E-4, query=[Inf(m':  0, v': 4), Inf(m':  2, v': 20), Exc(m':  1, v': 0), Inf(m':  0, v': 29), InfEq(m':  2, v': 4), Exc(m':  1, v': 0), InfEq(m':  0, v': 3), SupEq(m':  2, v': 4)], resultNbDraws=100.0}
+{constraintNumber=9, resultCPUTime=9.0E-4, query=[Inf(m':  0, v': 4), Inf(m':  2, v': 20), Exc(m':  1, v': 0), Inf(m':  0, v': 29), InfEq(m':  2, v': 4), Exc(m':  1, v': 0), InfEq(m':  0, v': 3), SupEq(m':  2, v': 4), Inc(m':  1, v': 1)], resultNbDraws=100.0}
+{constraintNumber=10, resultCPUTime=8.0E-4, query=[Inf(m':  0, v': 4), Inf(m':  2, v': 20), Exc(m':  1, v': 0), Inf(m':  0, v': 29), InfEq(m':  2, v': 4), Exc(m':  1, v': 0), InfEq(m':  0, v': 3), SupEq(m':  2, v': 4), Inc(m':  1, v': 1), InfEq(m':  0, v': 6)], resultNbDraws=100.0}

@@ -1,0 +1,5 @@
+{constraintNumber=1, resultCPUTime=0.0947, query=[SupEq(m':  0, v': 8)], resultNbDraws=614.7}
+{constraintNumber=2, resultCPUTime=2.505, query=[SupEq(m':  0, v': 8), Inf(m':  2, v': 19)], resultNbDraws=16247.7}
+{constraintNumber=3, resultCPUTime=4.976100000000001, query=[SupEq(m':  0, v': 8), Inf(m':  2, v': 19), InfEq(m':  3, v': 25)], resultNbDraws=32402.0}
+{constraintNumber=4, resultCPUTime=5.9758000000000004, query=[SupEq(m':  0, v': 8), Inf(m':  2, v': 19), InfEq(m':  3, v': 25), InfEq(m':  7, v': 49)], resultNbDraws=38774.3}
+{constraintNumber=5, resultCPUTime=8.0425, query=[SupEq(m':  0, v': 8), Inf(m':  2, v': 19), InfEq(m':  3, v': 25), InfEq(m':  7, v': 49), Inf(m':  1, v': 110)], resultNbDraws=51981.7}

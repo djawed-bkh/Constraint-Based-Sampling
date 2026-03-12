@@ -1,0 +1,1 @@
+{constraintNumber=1, resultCPUTime=0.0503, query=[SupEq(m':  0, v': 8)], resultNbDraws=2130.5}

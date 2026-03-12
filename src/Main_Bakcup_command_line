@@ -1,0 +1,168 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        // Initialize the database with empty lists
+
+
+        // Check if sufficient arguments are passed
+        if (args.length < 2) {
+            System.out.println("Usage: java Main <method> <database> [params...]");
+            return;
+        }
+
+        // Extract the method to call and the database name
+        String method = args[0];
+        String database = args[1];
+
+        // Handle methods based on input
+        switch (method.toLowerCase()) {
+            case "databasestatistics":
+                DatabaseStats(database);
+                break;
+            case "drawfips":
+                testDrawIP(database);
+                break;
+            case "drawrandomip":
+                testDrawRandomIP(database);
+                break;
+            case "drawtotalyrandomip":
+                testDrawTotalyRandomIP(database);
+                break;
+            case "evaluateplausibilityfips":
+                if (args.length != 6) {
+                    System.out.println("Usage: evaluateplausibilityfips <db> <nb_iterations> <Nb_random_DB> <threshold1> <threshold2>");
+                    return;
+                }
+                evaluatePlausibilityFIPS(database, Integer.parseInt(args[2]), Integer.parseInt(args[3]),
+                        Float.parseFloat(args[4]), Float.parseFloat(args[5]));
+                break;
+
+
+            case "evaluateplausibilityrandomip":
+                if (args.length != 6) {
+                    System.out.println("Usage: evaluateplausibilityrandomip <db> <nb_iterations> <threshold1> <threshold2>");
+                    return;
+                }
+                evaluatePlausibilityRandomIP(database, Integer.parseInt(args[2]), Integer.parseInt(args[3]),
+                        Float.parseFloat(args[4]), Float.parseFloat(args[5]));
+                break;
+
+            case "cpu_evolution_fips":
+                if (args.length != 4) {
+                    System.out.println("Usage: cpu_evolution_fips <db> <iterations> <file_path>");
+                    return;
+                }
+                evolutionTempsCPUFIPS(database, Integer.parseInt(args[2]), args[3]);
+                break;
+
+            case "cpu_evolution_randomip":
+                if (args.length != 4) {
+                    System.out.println("Usage: cpu_evolution_randomip <db> <iterations> <file_path>");
+                    return;
+                }
+                evolutionTempsCPURandomIP(database, Integer.parseInt(args[2]), args[3]);
+                break;
+            // Add more cases as per your methods
+            case "diversityfips":
+                if (args.length != 3){
+                    System.out.println("Usage: diversityfips <db> <iterations>");
+                    return;
+                }
+                evaluateDiversityFIPS(database, Integer.parseInt(args[2]));
+                break;
+            case "diversityrandomip":
+                if (args.length != 3){
+                System.out.println("Usage: diversityrandomip <db> <iterations>");
+                return;
+            }
+                evaluateDiversityRandomIP(database, Integer.parseInt(args[2]));
+                break;
+            default:
+                System.out.println("Unknown method: " + method);
+        }
+    }
+
+
+    public static Database readDatabase(String path){
+        Database db = new Database(new ArrayList<>(), new ArrayList<>());
+        db.readDB(path);
+        return db;
+    }
+
+    public static void DatabaseStats(String path){
+        Database db = new Database(new ArrayList<>(), new ArrayList<>());
+        db.readDB(path);
+        db.getDBStatistics();
+    }
+
+    // Example of implementing the methods as individual functions
+    public static void testDrawIP(String path) {
+        Database db= readDatabase(path);
+        FIPS ips = new FIPS(db);
+        IP ip = ips.drawIP();
+        ip.showIP();
+        ip.showCoverage();
+    }
+
+
+    public static void testDrawRandomIP(String path) {
+        Database db= readDatabase(path);
+        RandomIPSampling rips = new RandomIPSampling(db);
+        IP rip = rips.drawIP();
+        rip.showIP();
+        rip.showCoverage();
+    }
+
+
+    public static void testDrawTotalyRandomIP(String path) {
+        Database db= readDatabase(path);
+        TotalyRandomIPSampling trips = new TotalyRandomIPSampling(db);
+        IP trip = trips.drawIP();
+        trip.showIP();
+        trip.showCoverage();
+    }
+
+    public static void evaluatePlausibilityFIPS(String path, int iterations, int k, float threshold1, float threshold2) {
+        Database db= readDatabase(path);
+        Evaluation e = new Evaluation();
+        e.constrainedPlausibilityIP(iterations, k, db, threshold1, threshold2);
+    }
+
+    public static void evaluatePlausibilityRandomIP(String path, int iterations, int k, float threshold1, float threshold2) {
+        Database db= readDatabase(path);
+        Evaluation e = new Evaluation();
+        e.constrainedPlausibilityRandomIP(iterations, k, db, threshold1, threshold2);
+    }
+
+
+
+    public static void evolutionTempsCPUFIPS(String path, int iterations, String filePath) {
+        Database db= readDatabase(path);
+        Evaluation e = new Evaluation();
+        e.evolutionTempsCPUIP(iterations, db, filePath);
+    }
+
+
+
+    public static void evolutionTempsCPURandomIP(String path, int iterations, String filePath) {
+        Database db= readDatabase(path);
+        Evaluation e = new Evaluation();
+        e.evolutionTempsCPURandomIP(iterations, db, filePath);
+    }
+
+
+    public static void evaluateDiversityFIPS(String path, int k) {
+        Database db= readDatabase(path);
+        Evaluation e = new Evaluation();
+        System.out.println("Diversity of FIPS: "+e.eqClassDiversityIP(k,db));
+    }
+    public static void evaluateDiversityRandomIP(String path, int k) {
+        Database db= readDatabase(path);
+        Evaluation e = new Evaluation();
+        System.out.println("Diversity of the random interval pattern sampling: "+e.eqClassDiversityRandomIP(k,db));
+    }
+
+
+
+}

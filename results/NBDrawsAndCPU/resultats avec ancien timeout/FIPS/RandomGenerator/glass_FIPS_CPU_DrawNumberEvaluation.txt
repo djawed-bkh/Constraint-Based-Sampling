@@ -1,0 +1,2 @@
+{constraintNumber=1, resultCPUTime=9.0E-4, query=[Inc(m':  6, v': 65)], resultNbDraws=125.0}
+{constraintNumber=2, resultCPUTime=0.0489, query=[Inc(m':  6, v': 65), SupEq(m':  4, v': 91)], resultNbDraws=7045.4}

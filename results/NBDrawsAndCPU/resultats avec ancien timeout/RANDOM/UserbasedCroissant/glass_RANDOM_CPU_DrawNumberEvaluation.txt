@@ -1,0 +1,5 @@
+{constraintNumber=1, resultCPUTime=0.0335, query=[InfEq(m':  8, v': 10)], resultNbDraws=456.5}
+{constraintNumber=2, resultCPUTime=0.1365, query=[InfEq(m':  8, v': 10), Inf(m':  7, v': 12)], resultNbDraws=1857.2}
+{constraintNumber=3, resultCPUTime=0.1895, query=[InfEq(m':  8, v': 10), Inf(m':  7, v': 12), Sup(m':  5, v': 9)], resultNbDraws=2558.5}
+{constraintNumber=4, resultCPUTime=1.8545, query=[InfEq(m':  8, v': 10), Inf(m':  7, v': 12), Sup(m':  5, v': 9), InfEq(m':  2, v': 36)], resultNbDraws=25001.5}
+{constraintNumber=5, resultCPUTime=5.3742, query=[InfEq(m':  8, v': 10), Inf(m':  7, v': 12), Sup(m':  5, v': 9), InfEq(m':  2, v': 36), InfEq(m':  3, v': 71)], resultNbDraws=70976.9}

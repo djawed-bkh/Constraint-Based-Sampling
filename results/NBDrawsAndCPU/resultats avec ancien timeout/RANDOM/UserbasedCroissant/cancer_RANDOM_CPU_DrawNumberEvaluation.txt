@@ -1,0 +1,10 @@
+{constraintNumber=1, resultCPUTime=0.0086, query=[Sup(m':  2, v': 5)], resultNbDraws=122.9}
+{constraintNumber=2, resultCPUTime=0.0068, query=[Sup(m':  2, v': 5), SupEq(m':  0, v': 11)], resultNbDraws=180.3}
+{constraintNumber=3, resultCPUTime=0.012199999999999999, query=[Sup(m':  2, v': 5), SupEq(m':  0, v': 11), SupEq(m':  1, v': 29)], resultNbDraws=341.0}
+{constraintNumber=4, resultCPUTime=0.012, query=[Sup(m':  2, v': 5), SupEq(m':  0, v': 11), SupEq(m':  1, v': 29), SupEq(m':  3, v': 3)], resultNbDraws=348.2}
+{constraintNumber=5, resultCPUTime=0.018699999999999998, query=[Sup(m':  2, v': 5), SupEq(m':  0, v': 11), SupEq(m':  1, v': 29), SupEq(m':  3, v': 3), SupEq(m':  8, v': 22)], resultNbDraws=550.6}
+{constraintNumber=6, resultCPUTime=0.07490000000000001, query=[Sup(m':  2, v': 5), SupEq(m':  0, v': 11), SupEq(m':  1, v': 29), SupEq(m':  3, v': 3), SupEq(m':  8, v': 22), InfEq(m':  6, v': 50)], resultNbDraws=2265.9}
+{constraintNumber=7, resultCPUTime=0.12229999999999999, query=[Sup(m':  2, v': 5), SupEq(m':  0, v': 11), SupEq(m':  1, v': 29), SupEq(m':  3, v': 3), SupEq(m':  8, v': 22), InfEq(m':  6, v': 50), InfEq(m':  4, v': 89)], resultNbDraws=3649.3}
+{constraintNumber=8, resultCPUTime=0.1641, query=[Sup(m':  2, v': 5), SupEq(m':  0, v': 11), SupEq(m':  1, v': 29), SupEq(m':  3, v': 3), SupEq(m':  8, v': 22), InfEq(m':  6, v': 50), InfEq(m':  4, v': 89), InfEq(m':  5, v': 102)], resultNbDraws=4828.4}
+{constraintNumber=9, resultCPUTime=0.2317, query=[Sup(m':  2, v': 5), SupEq(m':  0, v': 11), SupEq(m':  1, v': 29), SupEq(m':  3, v': 3), SupEq(m':  8, v': 22), InfEq(m':  6, v': 50), InfEq(m':  4, v': 89), InfEq(m':  5, v': 102), SupEq(m':  7, v': 23)], resultNbDraws=6856.1}
+{constraintNumber=10, resultCPUTime=2.2251999999999996, query=[Sup(m':  2, v': 5), SupEq(m':  0, v': 11), SupEq(m':  1, v': 29), SupEq(m':  3, v': 3), SupEq(m':  8, v': 22), InfEq(m':  6, v': 50), InfEq(m':  4, v': 89), InfEq(m':  5, v': 102), SupEq(m':  7, v': 23), InfEq(m':  2, v': 17)], resultNbDraws=67090.5}

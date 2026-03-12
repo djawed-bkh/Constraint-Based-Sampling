@@ -1,0 +1,1677 @@
+            public void evolutionTempsCPUFIPS(int k,int rep, Database db, String output) {
+                 /*
+                  * Method that process the cpu time evolution of sampling k patterns with FIPS method
+                  *
+                  * */
+                 System.out.println("Evolution IP CPU TIME, database: " + db);
+
+                 FIPS sampling = new FIPS(db);
+
+                 try (PrintWriter writer = new PrintWriter(new FileWriter(output, true))) {
+                     writer.println("Iteration,IP_CPU_Time(ms)");
+
+                     long startTime = System.nanoTime();
+                     writer.println(0 + "," + 0.00); // Initial state, no time elapsed yet
+
+                     for (int i = 0; i < k; i++) {
+                         long iterationStartTime = System.nanoTime();  // Start time of the iteration
+
+                         IP ip = sampling.drawIP();
+
+                         long iterationEndTime = System.nanoTime();  // End time of the iteration
+                         long iterationElapsedTime = iterationEndTime - iterationStartTime;  // Elapsed time for this iteration
+                         double iterationElapsedTimeInMs = iterationElapsedTime / 1_000_000.0;  // Convert to milliseconds
+
+                         // Write to CSV file
+                         writer.println((i + 1) + "," + iterationElapsedTimeInMs);
+                     }
+
+                     long endTime = System.nanoTime();
+                     long totalElapsedTime = endTime - startTime;
+                     double totalElapsedTimeInMs = totalElapsedTime / 1_000_000.0;  // Convert total elapsed time to milliseconds
+                     writer.println((k + 1) + "," + totalElapsedTimeInMs);  // Total time for all iterations
+                 } catch (IOException e) {
+                     e.printStackTrace();
+                 }
+             }
+
+
+
+
+
+         List<Double> freqList = new ArrayList<>();  // Store frequencies
+                RandomIPSampling sampling = new RandomIPSampling(db);
+
+                for (int i = 0; i < k; i++) {
+                    IP ip = sampling.drawIP();
+                    double coverageSize = (double) ip.getCoverage().size() / db.getObjectNumber();
+                    freqList.add(coverageSize);  // Store the frequency
+                }
+
+                // Sort the list by frequency in increasing order
+                Collections.sort(freqList, Collections.reverseOrder());
+
+
+
+
+
+
+
+        // evolution frequence HIPS
+
+        List<Double> freqList = new ArrayList<>();  // Store frequencies
+                HIPS sampling = new HIPS(db);
+
+                for (int i = 0; i < k; i++) {
+                    IP ip = sampling.drawIP();
+                    double coverageSize = (double) ip.getCoverage().size() / db.getObjectNumber();
+                    freqList.add(coverageSize);  // Store the frequency
+                }
+
+                // Sort the list by frequency in increasing order
+                Collections.sort(freqList, Collections.reverseOrder());
+
+
+
+
+
+        // evolution frequence FIPS
+        List<Double> freqList = new ArrayList<>();  // Store frequencies
+            FIPS sampling = new FIPS(db);
+
+            for (int i = 0; i < k; i++) {
+                IP ip = sampling.drawIP();
+                double coverageSize = (double) ip.getCoverage().size() / db.getObjectNumber();
+                freqList.add(coverageSize);  // Store the frequency
+            }
+
+            // Sort the list by frequency in increasing order
+            Collections.sort(freqList, Collections.reverseOrder());
+
+
+    public void evolutionVolumeHIPS(int k, Database db, String output) {
+        /*
+         * Method that retrieves the frequency of k sampled interval patterns with the FIPS method
+         * */
+
+        List<BigDecimal> volume = new ArrayList<>();
+        HIPS sampling = new HIPS(db);
+
+        for (int i = 0; i < k; i++) {
+            IP ip = sampling.drawIP();
+            volume.add(ip.getVolume());  // Store the volume
+        }
+
+        // Sort the list by volume in increasing order
+        Collections.sort(volume, Collections.reverseOrder());
+
+        // Prepare CSV data
+        StringBuilder csvData = new StringBuilder();
+        csvData.append("Volume\n");  // Header for CSV
+
+        for (BigDecimal frequency : volume) {
+            csvData.append(frequency).append("\n");
+        }
+
+        // Write the CSV data to a file
+        try (FileWriter writer = new FileWriter(output)) {
+            writer.write(csvData.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Evaluation of Volume evolution done successfully");
+
+    }
+
+    public void evolutionVolumeFIPS(int k, Database db, String output) {
+        /*
+         * Method that retrieves the frequency of k sampled interval patterns with the FIPS method
+         * */
+
+        List<BigDecimal> volume = new ArrayList<>();  // Store volume
+        FIPS sampling = new FIPS(db);
+
+        for (int i = 0; i < k; i++) {
+            IP ip = sampling.drawIP();
+            volume.add(ip.getVolume());  // Store the volume
+        }
+
+        // Sort the list by volume in increasing order
+        Collections.sort(volume, Collections.reverseOrder());
+
+        // Prepare CSV data
+        StringBuilder csvData = new StringBuilder();
+        csvData.append("Volume\n");  // Header for CSV
+
+        for (BigDecimal frequency : volume) {
+            csvData.append(frequency).append("\n");
+        }
+
+        // Write the CSV data to a file
+        try (FileWriter writer = new FileWriter(output)) {
+            writer.write(csvData.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Evaluation of Volume evolution done successfully");
+
+    }
+
+
+
+
+
+
+
+
+    public BigDecimal sumIgm(ArrayList<Double> Igm) {
+
+        return BigDecimal.valueOf(Igm.stream().mapToDouble(Double::doubleValue).sum());
+    }
+
+
+
+    public BigDecimal sumJgm(ArrayList<Double> Jgm) {
+        return BigDecimal.valueOf(Jgm.stream().mapToDouble(Double::doubleValue).sum());
+    }
+
+
+
+
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_
+            Itemset sampling
+ public void evolutionTempsCPUItemsets(int k, Database db, String output) {
+        System.out.println("Itemset CPU TIME, database: " + db);
+
+        ItemsetSampling sampling = new ItemsetSampling(db);
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(output, true))) {
+            writer.println("Iteration,Itemset_CPU_Time(ms)");
+
+            for (int i = 0; i < k; i++) {
+                long startTime = System.nanoTime();  // Start time of the iteration
+
+                IP ip = sampling.drawItemsetToIP();
+
+                long endTime = System.nanoTime();  // End time of the iteration
+                long elapsedTime = endTime - startTime;  // Elapsed time for this iteration
+                double elapsedTimeInMs = elapsedTime / 1_000_000.0;  // Convert to milliseconds
+
+                // Write to CSV file
+                writer.println((i + 1) + "," + elapsedTimeInMs);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void evolutionFrequenceItemset(int k, Database db, String output) {
+        ArrayList<Double> freq = new ArrayList<>();
+        ItemsetSampling sampling = new ItemsetSampling(db);
+
+        // To store k values and corresponding coverage sizes
+        StringBuilder csvData = new StringBuilder();
+        csvData.append("K, CoverageSize\n");  // Header for CSV
+
+        System.out.println("Évolution fréquences");
+
+        for (int i = 0; i < k; i++) {
+            IP ip = sampling.drawItemsetToIP();
+            double coverageSize = (double) ip.processCoverage(db).size() / db.getObjectNumber();
+            freq.add(coverageSize);
+
+            // Append data to CSV string
+            csvData.append(i).append(", ").append(coverageSize).append("\n");
+        }
+
+        // Write the CSV data to a file
+        try (FileWriter writer = new FileWriter(output)) {
+            writer.write(csvData.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public double eqClassDiversityItemset(int k, Database db) {
+        /*
+         * Diversité d'apres la methode soulet
+         * */
+
+        Set<Long> eqClass = new HashSet<>();
+        ItemsetSampling sampling = new ItemsetSampling(db);
+
+        for (int i = 0; i < k; i++) {
+            IP ip = sampling.drawItemsetToIP();
+            eqClass.add(ip.getHash());
+        }
+        return (double) eqClass.size() / k;
+    }
+
+    public void jaccardCDFItemsetRev(int k, Database db, String outputFilePath) {
+        ArrayList<IP> patterns = new ArrayList<>();
+        double[] thresholds = {0.2, 0.4, 0.6, 0.8, 1};
+        HashMap<Double, Double> results = new HashMap<>();
+
+        // 1- Draw k patterns
+        ItemsetSampling its = new ItemsetSampling(db);
+        for (int i = 0; i < k; i++) {
+            patterns.add(its.drawItemsetToIP());
+        }
+
+        // 2- Calculate the CDF
+        for (double thresh : thresholds) {
+            int count = 0;
+            for (int i = 0; i < patterns.size(); i++) { // iterate over each unique pair of patterns
+                for (int j = i + 1; j < patterns.size(); j++) {
+                    double jacc = jaccard(patterns.get(i), patterns.get(j));
+                    if (jacc <= thresh) {
+                        count++;
+                    }
+                }
+            }
+            double cdfValue = (double) count * 2 / (k * (k - 1));
+            results.put(thresh, cdfValue);
+        }
+
+        // 3- Write the results to a CSV file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputFilePath))) {
+            // Write the header
+            writer.write("Jaccard threshold,CDF Value");
+            writer.newLine();
+
+            // Write each threshold and its corresponding CDF value
+            for (double thresh : thresholds) {
+                writer.write(thresh + "," + results.get(thresh));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void jaccardDiversityItemset(int k, Database db, String outputFilePath) {
+
+
+        ArrayList<Itemset> ItemsetList = new ArrayList<>();
+        ArrayList<Double> MeanJaccardScore = new ArrayList<>();
+
+        ItemsetSampling sampling = new ItemsetSampling(db);
+
+        // To store k values and corresponding Jaccard scores
+        StringBuilder csvData = new StringBuilder();
+        csvData.append("K, MeanJaccardScore\n");  // Header for CSV
+
+        for (int i = 0; i < k; i++) {
+            Itemset curritemset = sampling.drawItemset();
+            if (ItemsetList.isEmpty()) {
+                ItemsetList.add(curritemset);
+            } else {
+                double localmean = 0.0;
+                for (Itemset itemset : ItemsetList) {
+                    localmean += jaccard(curritemset, itemset);
+                }
+                double meanJaccard = localmean / ItemsetList.size();
+                MeanJaccardScore.add(meanJaccard);
+                ItemsetList.add(curritemset);
+
+                // Print and append to CSV data
+                //System.out.println("k = " + i + ": " + meanJaccard + ",");
+                csvData.append(i).append(", ").append(meanJaccard).append("\n");
+            }
+        }
+
+        // Write the CSV data to a file
+        try (FileWriter writer = new FileWriter(outputFilePath)) {
+            writer.write(csvData.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+        public IP drawIP() {
+
+            /* Method that draws an interval pattern proportional to fréquency
+             *
+             * Return: sampled IP
+             */
+            ArrayList<Integer> resultingIP = new ArrayList<>();
+
+            int drawnObject1 = DrawObject();           // draw object proportionally to w(g)
+            for (int m = 0; m < dataset.getColumnsNumberNumerical(); m++) {
+                int value = dataset.getObject(drawnObject1).get(m);
+                int indexlb = (int) (Math.random() * value);            //WARNING: works only for normalized data
+                int indexub = (value + (int) (Math.random() * ((dataset.getDistinctValues().get(m).size()) - value))); //WARNING: works only for normalized data
+                resultingIP.add(dataset.distinctValues.get(m).get(indexlb));
+                resultingIP.add(dataset.distinctValues.get(m).get(indexub));
+            }
+            return new IP(resultingIP, dataset, false);
+        }
+
+
+
+
+
+    public double processVolume() {
+        /*
+        * Method that process the volume of the current IP
+        * Retrun: double value
+        *
+        *  */
+        ArrayList<Integer>closedIP;
+        if(this.closed){
+            //System.out.println("we are here");
+            closedIP= this.getIP();
+        }else{
+            closedIP= this.closureOperator();
+
+        }
+
+        double volume = 1;
+        for (int i = 0; i < closedIP.size(); i += 2) {
+            double diff = closedIP.get(i + 1) - closedIP.get(i);
+
+            if (diff > 0) {
+
+                volume *= diff;
+            }
+        }
+        //System.out.println("Volume:"+ volume);
+        return volume;
+    }
+
+
+public void CFIPSNumberOfDrawsEvaluation(Database db, int numberOfPatterns, int NumberOfConstraints, int generatorType, int rep) {
+        ArrayList<Constraint> constraintList = new ArrayList<>();
+        CFIPS CFIPS = new CFIPS(db, constraintList);
+
+        if (generatorType == 1) {     // Totaly random constraints
+            ConstraintGenerator constgen = new ConstraintGenerator(db, NumberOfConstraints, 1);
+            constraintList = constgen.TotalyRandomConstraints(NumberOfConstraints);
+        } else if (generatorType == 2) { // Ascending order of attribute constraints
+            ConstraintGenerator constgen = new ConstraintGenerator(db, NumberOfConstraints, 2, true);
+            constraintList = constgen.RandomConstraintsOrderedAttributes(NumberOfConstraints, true);
+        } else if (generatorType == 3) {
+            ConstraintGenerator constgen = new ConstraintGenerator(db, NumberOfConstraints, 2, false);
+            constraintList = constgen.TotalyRandomConstraints(NumberOfConstraints);
+        } else {      //4 user based
+
+        }
+
+
+        double meanDraws = 0.0;
+        long expestart = System.currentTimeMillis();
+        long timeout = 300000; // 5 minutes in milliseconds
+        long TotalCpuTime = 0;
+        for (int r = 0; r < rep; r++) {
+            int i = 0;
+            int Ndraws = 0;
+            if (System.currentTimeMillis() - expestart > timeout) {
+                System.out.println("Timeout occurred. Exiting the process.");
+                return; // Exit when timeout
+            }
+
+
+            // Track the start time
+            long startTime = System.currentTimeMillis();
+
+
+            while (i < numberOfPatterns) {
+                // Check if the elapsed time has exceeded the timeout
+                if (System.currentTimeMillis() - startTime > timeout) {
+                    System.out.println("Timeout occurred. Exiting the process.");
+                    System.out.println("Number of Iterations before timeout: " + Ndraws);
+                    return; // Exit the method if the timeout is reached
+                }
+
+                long drawStart = System.currentTimeMillis();
+
+                IP ip = CFIPS.drawIP();
+
+                TotalCpuTime += System.currentTimeMillis() - drawStart;
+                Ndraws++;
+
+                boolean satisfyConst = true;
+                for (Constraint c : constraintList) { // ici check le respect des contraintes
+                    if (c instanceof Inclusion) {
+                        if (!checkInclusionConstraint(c.getMprim(), c.getVprim(), ip)) {
+                            satisfyConst = false;
+                            break;
+                        }
+
+                    } else if (c instanceof Exclusion) {
+                        if (!checkExclusionConstraint(c.getMprim(), c.getVprim(), ip)) {
+                            satisfyConst = false;
+                            break;
+                        }
+                    } else if (c instanceof Sup) {
+                        if (!checkSupConstraint(c.getMprim(), c.getVprim(), ip)) {
+                            satisfyConst = false;
+                            break;
+                        }
+                    } else if (c instanceof Inf) {
+                        if (!checkInfConstraint(c.getMprim(), c.getVprim(), ip)) {
+                            satisfyConst = false;
+                            break;
+                        }
+                    } else if (c instanceof SupEq) {
+                        if (!checkSupEqConstraint(c.getMprim(), c.getVprim(), ip)) {
+                            satisfyConst = false;
+                            break;
+                        }
+                    } else if (c instanceof InfEq) {
+                        if (!checkInfEqConstraint(c.getMprim(), c.getVprim(), ip)) {
+                            satisfyConst = false;
+                            break;
+                        }
+                    }
+                }
+                if (satisfyConst) {
+                    i++;
+                }
+            }
+            meanDraws += Ndraws;
+        }
+        double result = meanDraws / rep;
+        System.out.println("Constrained FIPS: " + numberOfPatterns + " patterns are drawn in " + result + " iterations");
+        System.out.println("Gain(%): " + result / numberOfPatterns);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void evolutionTempsCPURandomIPRejet(int k, ArrayList<ConstraintList.Constraint> constraintList, Database db, String output) {
+            /*
+             * Method that process the cpu time evolution of sampling k patterns with random method
+             *
+             * */
+            System.out.println("Evolution IP CPU TIME, database: " + db);
+
+            RandomIPSampling sampling = new RandomIPSampling(db);
+
+            try (PrintWriter writer = new PrintWriter(new FileWriter(output, true))) {
+                writer.println("Iteration,IP_CPU_Time(ms)");
+
+                long startTime = System.nanoTime();
+                writer.println(0 + "," + 0.00); // Initial state, no time elapsed yet
+                int i=0;
+                boolean respectConstraint=true;
+                long iterationStartTime= Long.MIN_VALUE;
+
+                while (i<k){
+                    if(respectConstraint){
+                         iterationStartTime = System.nanoTime();  // Start time of the iteration
+                    }
+                    IP ip = sampling.drawIP();
+
+                    respectConstraint = true;
+                    for (ConstraintList.Constraint c: constraintList){ // ici check le respect des contraintes
+                        if(c instanceof ConstraintList.Inclusion){
+                            if(!checkInclusionConstraint(c.getMprim(),c.getVprim(),ip)){
+                                respectConstraint = false;
+                                break;
+                            }
+
+                        } else if (c instanceof ConstraintList.Exclusion) {
+                            if(!checkExclusionConstraint(c.getMprim(),c.getVprim(),ip)){
+                                respectConstraint = false;
+                                break;
+                            }
+                        } else if (c instanceof ConstraintList.Sup) {
+                            if(!checkSupConstraint(c.getMprim(),c.getVprim(),ip)){
+                                respectConstraint = false;
+                                break;
+                            }
+                        } else if (c instanceof ConstraintList.Inf){
+                            if(!checkInfConstraint(c.getMprim(),c.getVprim(),ip)){
+                                respectConstraint = false;
+                                break;
+                            }
+                        } else if (c instanceof ConstraintList.SupEq) {
+                            if(!checkSupEqConstraint(c.getMprim(),c.getVprim(),ip)){
+                                respectConstraint = false;
+                                break;
+                            }
+                        } else if (c instanceof ConstraintList.InfEq) {
+                            if(!checkInfEqConstraint(c.getMprim(),c.getVprim(),ip)){
+                                respectConstraint = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if(respectConstraint){
+                        if(iterationStartTime == Long.MIN_VALUE){
+                            System.out.println("ERROR: iterationstartTime == to -infinity");
+                            return;
+                        }
+                        long iterationEndTime = System.nanoTime();  // End time of the iteration
+                        long iterationElapsedTime = iterationEndTime - iterationStartTime;  // Elapsed time for this iteration
+                        double iterationElapsedTimeInMs = iterationElapsedTime / 1_000_000.0;  // Convert to milliseconds
+                        // Write to CSV file
+                        writer.println((i + 1) + "," + iterationElapsedTimeInMs);
+                        i++;
+                    }
+                }
+
+                long endTime = System.nanoTime();
+                long totalElapsedTime = endTime - startTime;
+                double totalElapsedTimeInMs = totalElapsedTime / 1_000_000.0;  // Convert total elapsed time to milliseconds
+                writer.println((k + 1) + "," + totalElapsedTimeInMs);  // Total time for all iterations
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void evolutionTempsCPURandomClosedIP(int k, Database db, String output) {
+        /*
+         * Method that process the cpu time evolution of sampling k patterns with random method
+         *
+         * */
+        System.out.println("Evolution Closed IP CPU TIME, database: " + db);
+
+        RandomIPSampling sampling = new RandomIPSampling(db);
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(output, true))) {
+            writer.println("Iteration,IP_CPU_Time(ms)");
+
+            long startTime = System.nanoTime();
+            writer.println(0 + "," + 0.00); // Initial state, no time elapsed yet
+
+            for (int i = 0; i < k; i++) {
+                long iterationStartTime = System.nanoTime();  // Start time of the iteration
+
+                IP ip = sampling.drawClosedIP();
+
+                long iterationEndTime = System.nanoTime();  // End time of the iteration
+                long iterationElapsedTime = iterationEndTime - iterationStartTime;  // Elapsed time for this iteration
+                double iterationElapsedTimeInMs = iterationElapsedTime / 1_000_000.0;  // Convert to milliseconds
+
+                // Write to CSV file
+                writer.println((i + 1) + "," + iterationElapsedTimeInMs);
+            }
+
+            long endTime = System.nanoTime();
+            long totalElapsedTime = endTime - startTime;
+            double totalElapsedTimeInMs = totalElapsedTime / 1_000_000.0;  // Convert total elapsed time to milliseconds
+            writer.println((k + 1) + "," + totalElapsedTimeInMs);  // Total time for all iterations
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void evolutionTempsCPUClosedIP(int k, Database db, String output) {
+        /*
+         * Method that process the cpu time evolution of sampling k patterns with FIPS method + closure opeator
+         *
+         * */
+        System.out.println("Evolution Closed IP CPU TIME, database: " + db);
+
+        FIPS sampling = new FIPS(db);
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(output, true))) {
+            writer.println("Iteration,IP_CPU_Time(ms)");
+
+            long startTime = System.nanoTime();
+            writer.println(0 + "," + 0.00); // Initial state, no time elapsed yet
+
+            for (int i = 0; i < k; i++) {
+                long iterationStartTime = System.nanoTime();  // Start time of the iteration
+
+                IP ip = sampling.drawClosedIP();
+
+                long iterationEndTime = System.nanoTime();  // End time of the iteration
+                long iterationElapsedTime = iterationEndTime - iterationStartTime;  // Elapsed time for this iteration
+                double iterationElapsedTimeInMs = iterationElapsedTime / 1_000_000.0;  // Convert to milliseconds
+
+                // Write to CSV file
+                writer.println((i + 1) + "," + iterationElapsedTimeInMs);
+            }
+
+            long endTime = System.nanoTime();
+            long totalElapsedTime = endTime - startTime;
+            double totalElapsedTimeInMs = totalElapsedTime / 1_000_000.0;  // Convert total elapsed time to milliseconds
+            writer.println((k + 1) + "," + totalElapsedTimeInMs);  // Total time for all iterations
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+        public IP ProcessClosure(IP ip){
+           ArrayList<Integer> ClosedIP = new ArrayList<>();
+           for(int m =0; m < dataset.columnsNumberNumerical; m++){
+               int lowerBound = Integer.MAX_VALUE;
+               int upperBound = Integer.MIN_VALUE;
+               for(int g : ip.getCoverage()){
+                if(dataset.getObject(g).get(m) < lowerBound ){
+                    lowerBound= dataset.getObject(g).get(m);
+                }
+                   if(dataset.getObject(g).get(m) > upperBound ){
+                       upperBound= dataset.getObject(g).get(m);
+                   }
+               }
+               ClosedIP.add(lowerBound);
+               ClosedIP.add(upperBound);
+           }
+
+            return new IP(ClosedIP, dataset);
+        }
+
+
+
+
+
+    // constrained plausibility
+
+
+    public void constrainedPlausibilityRandomIP(int n, int k, Database realDb, float minfreq, float maxfreq){
+           Database [] randDatasets;
+           double avgPrecision=0;
+           double avgDifference=0;
+
+           //---------------------------------------------------------- randomizing the initial dataset
+           randDatasets = new Database [k];
+           for (int i = 0; i < k; i++) {
+               randDatasets[i] = realDb.randomizeNumericalDB();
+               randDatasets[i].setDBInfos();
+           }
+
+           ArrayList<IP> patternPool = new ArrayList<>();
+           int i =0;
+           while (patternPool.size() < n){
+               IP ip = new RandomIPSampling(realDb).drawIP();
+               float freq= (float) ip.getCoverage().size() / realDb.objectNumber;
+               if( freq > minfreq  && freq < maxfreq  ){
+                   patternPool.add(ip);
+               }
+               i++;
+           }
+
+           for(IP pattern: patternPool){
+               ArrayList<Integer> cov= pattern.getCoverage();
+               double frequency = cov.size();
+
+               for (int j = 0; j < k; j++) {
+                   double freq = pattern.processCoverage(randDatasets[j]).size();
+                   double diff = frequency - freq;
+                   if(diff <0){
+                       diff=0;
+                   }
+                   if(frequency != Double.POSITIVE_INFINITY && diff != Double.POSITIVE_INFINITY){
+                       avgDifference += diff;                // ajouter la difference de support dans avgDifference
+                       avgPrecision += frequency;
+                   }
+               }
+           }
+
+           avgPrecision = avgDifference / avgPrecision;
+
+           System.out.println("Plausibility Random IP: "+avgPrecision+" Number of Iterations: "+i);
+
+
+
+       }
+
+
+
+
+
+
+
+
+
+    public void constrainedPlausibilityIP(int n, int k, Database realDb, float minfreq, float maxfreq){
+        Database [] randDatasets;
+        double avgPrecision=0;
+        double avgDifference=0;
+
+        //---------------------------------------------------------- randomizing the initial dataset
+        randDatasets = new Database [k];
+        for (int i = 0; i < k; i++) {
+            randDatasets[i] = realDb.randomizeNumericalDB();
+            randDatasets[i].setDBInfos();
+        }
+
+        ArrayList<IP> patternPool = new ArrayList<>();
+        int i =0;
+        while (patternPool.size() < n){
+            IP ip = new FIPS(realDb).drawIP();
+            float freq= (float) ip.getCoverage().size() / realDb.objectNumber;
+            if( freq > minfreq  && freq < maxfreq  ){
+                patternPool.add(ip);
+            }
+            i++;
+        }
+
+        for(IP pattern: patternPool){
+            ArrayList<Integer> cov= pattern.getCoverage();
+            double frequency = cov.size();
+
+            for (int j = 0; j < k; j++) {
+                double freq = pattern.processCoverage(randDatasets[j]).size();
+                double diff = frequency - freq;
+                if(diff <0){
+                    diff=0;
+                }
+                if(frequency != Double.POSITIVE_INFINITY && diff != Double.POSITIVE_INFINITY){
+                    avgDifference += diff;                // ajouter la difference de support dans avgDifference
+                    avgPrecision += frequency;
+                }
+            }
+        }
+
+        avgPrecision = avgDifference / avgPrecision;
+
+        System.out.println("Plausibility FIPS: "+avgPrecision+" Number of Iterations: "+i);
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//IP Sampling
+
+import java.util.ArrayList;
+
+public class FIPS {
+
+    protected final Database dataset;
+    ArrayList<Double> CumulativeObjectsweights = new ArrayList<>();
+    double ObjectstotalWeight = 0.0;
+
+    public FIPS(Database dataset) {
+        this.dataset = dataset;
+
+        ProcessObjectsWeights();
+        //System.out.println("ObjectstotalWeight: "+ObjectstotalWeight);
+    }
+
+
+
+    public void ProcessObjectsWeights(){
+
+        for(int g = 0; g< this.dataset.getObjectNumber(); g++){
+            double objectWeight=1.0;
+            for(int m = 0; m< this.dataset.getColumnsNumberNumerical(); m++){
+
+                int valIndex= this.dataset.getObject(g).get(m);
+                if(valIndex == -1){
+                    System.out.println("ERROR: We should not be here");
+                }
+
+                objectWeight *= valIndex + (dataset.getDistinctValues().get(m).size() - valIndex) + ( valIndex * (dataset.getDistinctValues().get(m).size() - valIndex ))  + 1 ;
+            }
+            if(CumulativeObjectsweights.isEmpty()){
+                CumulativeObjectsweights.add(objectWeight);
+
+            }else{
+                CumulativeObjectsweights.add(CumulativeObjectsweights.get(CumulativeObjectsweights.size()-1) + objectWeight);
+            }
+
+            ObjectstotalWeight += objectWeight;
+        }
+    }
+
+    public IP drawIP(){
+
+        /** Method that draws an interval pattern proportional to fréquency
+        **/
+
+        int drawnObject1 =  DrawObject();           // draw object proportionally to w(g)
+        ArrayList<Integer> resultingIP= new ArrayList<>();
+
+        for(int m = 0; m < dataset.getColumnsNumberNumerical(); m++){ //correct ??
+            int value= dataset.getObject(drawnObject1).get(m);
+            int indexlb = (int) (Math.random() * value);
+            int indexub =  (value + (int) (Math.random() *((dataset.getDistinctValues().get(m).size() - 1 ) - value)));
+
+            resultingIP.add(indexlb);
+            resultingIP.add(indexub);
+        }
+
+        return new IP(resultingIP,dataset);
+    }
+
+
+
+
+
+    public void drawCIP(){
+        //todo
+
+
+    }
+    public int DrawObject(){
+        double drawnobject= Math.random() * ObjectstotalWeight;
+        return FindIndex(0, dataset.getObjectNumber(), drawnobject);
+    }
+
+    private int FindIndex(int left, int right, double drawnobject) {
+        int middle = (left + right) / 2;
+        if (CumulativeObjectsweights.get(middle) >= drawnobject)
+            if (middle == 0 || CumulativeObjectsweights.get(middle-1) < drawnobject)
+                return middle;
+            else
+                return FindIndex(left, middle, drawnobject);
+        else
+            return FindIndex(middle, right, drawnobject);
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//IP Sampling
+//ItemsetSampling
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ItemsetSampling {
+    protected final Database dataset;
+    ArrayList<Double> Cumulativetransactionsweights = new ArrayList<>();
+    double TransactionstotalWeight = 0.0;
+
+
+    public ItemsetSampling(Database dataset) {
+        this.dataset = dataset;
+        ProcessTransactionsWeights();
+
+    }
+
+
+
+
+    public Itemset drawItemset(){
+        /*
+         * Method that draws an itemset  proportional to fréquency [boley & al]
+         * ToIP = true mean that we convert the resulting itemset into an interval pattern
+         *
+         * */
+
+        System.out.println("Cumulativetransactionsweights: "+  Cumulativetransactionsweights.get(0));
+
+        int drawnTransaction =  DrawTransaction();           // draw object proportionally to w(g)
+        System.out.println("transaction: "+ drawnTransaction);
+        ArrayList<Integer> resultingItemset= new ArrayList<>();
+
+        for(int i =0; i <this.dataset.getTrasaction(drawnTransaction).size(); i++ ){
+            if(this.dataset.getTrasaction(drawnTransaction).get(i).equals(1) && Math.random()> 0.5f){
+                resultingItemset.add(i);
+            }
+        }
+
+            return new Itemset(resultingItemset,dataset);
+
+    }
+
+
+    public IP drawItemsetToIP(){
+        /*
+         * Method that draws an itemset  proportional to fréquency [boley & al]
+         * ToIP = true mean that we convert the resulting itemset into an interval pattern
+         *
+         * */
+
+        int drawnTransaction =  DrawTransaction();           // draw object proportionally to w(g)
+
+        ArrayList<Integer> resultingItemset= new ArrayList<>();
+        List<Integer> ip= new ArrayList<>();
+
+        for(int i =0; i <this.dataset.getTrasaction(drawnTransaction).size(); i++ ){
+            if(this.dataset.getTrasaction(drawnTransaction).get(i).equals(1) && Math.random()> 0.5f){
+                resultingItemset.add(i);
+            }
+        }
+        ip =  ItemsetToIP(resultingItemset,dataset);
+        System.out.println("IP: "+ip);
+        return new IP(resultingItemset,dataset);
+    }
+
+
+
+
+
+    public List<Integer> ItemsetToIP(List<Integer> Itemset, Database db){
+    List<Integer> IP = new ArrayList<>();
+
+        System.out.println("Itemset: "+Itemset);
+        //3-Parcourir chaque objet de la bdd binaire pour former les intervalles
+        for(int m=0; m< dataset.getColumnsNumberNumerical();m++){
+            int lowerBound= Integer.MIN_VALUE;
+            int upperBound= Integer.MAX_VALUE;
+
+            for(int item: Itemset ){
+             if(item >= db.attributesFrontieres.get(m).get(0) && item <= db.attributesFrontieres.get(m).get(1) )
+            if(item % 2 != 0  && item > lowerBound ){
+                lowerBound = item;
+            }else if(item % 2 == 0  && item < upperBound){
+                upperBound = item;
+            }
+            }
+            IP.add(db.MappingDistinctValue.get(m).get(lowerBound));
+            IP.add(db.MappingDistinctValue.get(m).get(upperBound));
+        }
+
+
+
+        return IP;
+    }
+
+
+
+
+    public void ProcessTransactionsWeights(){
+
+        for(int g = 0; g< this.dataset.getObjectNumber(); g++){
+            int Nitems=0;
+            for(Integer bin: this.dataset.getTrasaction(g) ){
+                Nitems += bin;
+            }
+            double objectWeight = Math.pow(2, Nitems);
+
+            if(Cumulativetransactionsweights.isEmpty()){
+                Cumulativetransactionsweights.add(objectWeight);
+
+            }else{
+                Cumulativetransactionsweights.add(Cumulativetransactionsweights.get(Cumulativetransactionsweights.size()-1) + objectWeight);
+            }
+            TransactionstotalWeight += objectWeight;
+        }
+    }
+
+
+
+    public int DrawTransaction(){
+        double drawnobject= Math.random() * TransactionstotalWeight;
+        return FindIndex(0, dataset.getObjectNumber(), drawnobject);
+    }
+
+    private int FindIndex(int left, int right, double drawnobject) {
+        int middle = (left + right) / 2;
+        if (Cumulativetransactionsweights.get(middle) >= drawnobject)
+            if (middle == 0 || Cumulativetransactionsweights.get(middle-1) < drawnobject)
+                return middle;
+            else
+                return FindIndex(left, middle, drawnobject);
+        else
+            return FindIndex(middle, right, drawnobject);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//itemsetSampling
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void delemitISdistinctValuesBorders(){
+        //1 determiner les frontieres de chaque attribut dans la bdd binaire
+
+
+        for(int i=0; i < this.getDistinctValues().size(); i++){
+
+            if(i==0){
+                this.attributesFrontieres.add(i);
+                this.attributesFrontieres.add(i + (this.getDistinctValues().get(i).size() * 2));
+            }else{
+                this.attributesFrontieres.add(this.attributesFrontieres.get(this.attributesFrontieres.size()-1)+1);
+                this.attributesFrontieres.add((this.attributesFrontieres.get(this.attributesFrontieres.size()-1)+1) + ((this.getDistinctValues().get(i).size()- 1) * 2));
+            }
+        }
+        /*System.out.println("\nPrinting with an enhanced for loop:");
+        for (Integer value : this.attributesFrontieres) {
+            System.out.println(value);
+        }*/
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static List<List<Integer>> transpose(List<List<Integer>> database) {
+        List<List<Integer>> TransposDatabase = new ArrayList<>();
+
+        if (database.isEmpty()) {
+            return TransposDatabase; // Return empty list if input is empty
+        }
+
+        int rowCount = database.size();
+        int colCount = database.get(0).size();
+
+        // Initialize the transposed list with empty lists
+        for (int i = 0; i < colCount; i++) {
+            TransposDatabase.add(new ArrayList<>());
+        }
+
+        // Fill the transposed list
+        for (int i = 0; i < rowCount; i++) {
+            for (int j = 0; j < colCount; j++) {
+                TransposDatabase.get(j).add(database.get(i).get(j));
+            }
+        }
+
+        return TransposDatabase;
+    }
+
+
+
+
+
+
+
+
+//last main saved:
+
+
+
+public class Main {
+
+        public static void main(String[] args) {
+            // Initialize the database with empty lists
+            Database db = new Database(new ArrayList<>(), new ArrayList<>());
+
+
+            String dbPath = "../Normalized_data/benchmark/AP_T.dat";
+            //String [] databases={"AP","balance-scale", "BK", "cancer", "CH", "diabetes", "glass","heart", "Iris","NT", "LW","sonar", "yacht" };
+            String [] databases={"Iris"};
+
+            boolean ISbinary= false;
+
+            if(ISbinary){           //ITEMSET
+
+                System.out.println("ITEMSETS: \n");
+
+
+                for (int j =0; j < databases.length; j++){
+                    db.readDB("../Normalized_data/benchmark/"+databases[j] +"_IS_BIN.dat", ISbinary);
+                    System.out.println("Database: "+databases[j] );
+
+
+
+                    //Evaluation e = new Evaluation();
+
+                    //System.out.println("ITEMSET: Soulet diversity: " + e.eqClassDiversityItemset(500,db));
+
+                    // System.out.println("Evolution de fréquences: ");
+                    // e.evolutionFrequenceItemset(10000, db,"results/Frequency/Itemsets/"+databases[j]+"_frequency_Evolution_itemset.csv");
+                    //.out.println("\n Done");
+
+
+                    //System.out.println("Jaccard Diversity: ");
+                    // e.jaccardDiversityItemset(1000, db, "results/Jaccard/Itemsets/"+databases[j]+"_Jaccard_Evolution_itemset.csv");
+                    // System.out.println("\n Done ");
+
+                    //e.evolutionTempsCPUItemsets(1000,db,"results/CpuEvolution/Itemsets/"+ databases[j] +"_CPU_Evolution_Itemset.csv");
+
+                }
+
+
+
+
+
+            }else{              //IP
+
+                System.out.println("INTERVAL PATTERNS: \n");
+
+                for (int j =0; j < databases.length; j++){
+                    db.readDB("../Normalized_data/benchmark/"+databases[j]+"_T.dat", ISbinary);
+                    System.out.println("Database: "+databases[j] );
+
+                    db.setDistinctValues();
+
+                    db.binarizeDB();
+                    //db.showBinarizedDB();
+
+                    //db.showDB();
+                    //db.showTransposedDB();
+
+                    //Evaluation e = new Evaluation();
+
+                    //System.out.println("IP: Soulet diversity: " + e.eqClassDiversityIP(100000,db));
+                    //System.out.println("Evolution frequence: ");
+                    //e.evolutionFrequenceIP(10000, db, "results/Frequency/IP/"+ databases[j] + "_frequency_Evolution_IP.csv");
+                    //System.out.println("\n Done ");
+
+                    //System.out.println("Jaccard diversity: ");
+                    //e.jaccardDiversityIP(1000, db,"results/Jaccard/IP/"+ databases[j] +"_Jaccard_Evolution_IP.csv");
+                    //System.out.println(" \n Done");
+
+                    //e.evolutionTempsCPUIP(1000, db,"results/CpuEvolution/IP/"+ databases[j] +"_CPU_Evolution_IP.csv");
+
+
+
+                }
+
+
+
+
+            }
+
+
+
+
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+// main for server
+
+    public static void main(String[] args) {
+        // Initialize the database with empty lists
+        Database db = new Database(new ArrayList<>(), new ArrayList<>());
+
+
+        String dbPath = "../Normalized_data/benchmark/AP_T.dat";
+        String [] databases={"AP","balance-scale", "BK", "cancer", "CH", "diabetes", "glass","heart", "Iris","NT", "LW","sonar", "yacht" };
+        //String [] databases={"Iris"};
+
+        HashMap<String, Integer> Databases= new HashMap<>();
+
+        Databases.put("AP",82467124);
+        Databases.put("balance-scale",50625);
+        Databases.put("BK",14922850);
+        Databases.put("cancer",7632807);
+        //Databases.put("CH",);
+        Databases.put("diabetes",295180622);
+        Databases.put("glass",190483);
+        Databases.put("heart",4467980);
+        Databases.put("Iris",6384420);
+        Databases.put("LW",10277456);
+        Databases.put("NT",127851);
+        Databases.put("sonar",9848850);
+        Databases.put("yacht",68120486);
+
+
+
+           //IP
+
+            System.out.println("INTERVAL PATTERNS: \n");
+            for ( String key : Databases.keySet()){
+                db.readDB("./data/"+key+"/"+key+"_T.dat", false);
+                //db.readDB("../Normalized_data/benchmark/"+key+"_T.dat", false);
+                System.out.print(key+": " );
+                db.setDistinctValues();
+
+                Evaluation e = new Evaluation();
+
+               e.TempsCPUIP(Databases.get(key), db);
+
+            }
+
+    }
+
+
+
+//Old main:
+     public class Main {
+         public static void main(String[] args) {
+             // Initialize the database with empty lists
+             Database db = new Database(new ArrayList<>(), new ArrayList<>());
+
+
+             String dbPath = "../Normalized_data/benchmark/AP_T.dat";
+             String [] databases={"AP","balance-scale", "BK", "cancer", "CH", "diabetes", "glass","heart", "Iris","LW","NT", "LW","sonar", "yacht" };
+             //String [] databases={"Iris"};
+
+             boolean ISbinary= false;
+
+             if(ISbinary){           //ITEMSET
+
+                 System.out.println("ITEMSETS: \n");
+
+
+                 for (int j =0; j < databases.length; j++){
+                     db.readDB("../Normalized_data/benchmark/"+databases[j] +"_IS_BIN.dat", ISbinary);
+                     System.out.println("Database: "+databases[j] );
+
+                     Evaluation e = new Evaluation();
+
+                     //System.out.println("ITEMSET: Soulet diversity: " + e.eqClassDiversityItemset(100000,db));
+
+                    // System.out.println("Evolution de fréquences: ");
+                    // e.evolutionFrequenceItemset(10000, db,"results/Frequency/Itemsets/"+databases[j]+"_frequency_Evolution_itemset.csv");
+                     //.out.println("\n Done");
+
+
+                     //System.out.println("Jaccard Diversity: ");
+                    // e.jaccardDiversityItemset(1000, db, "results/Jaccard/Itemsets/"+databases[j]+"_Jaccard_Evolution_itemset.csv");
+                    // System.out.println("\n Done ");
+
+                     //e.evolutionTempsCPUItemsets(1000,db,"results/CpuEvolution/Itemsets/"+ databases[j] +"_CPU_Evolution_Itemset.csv");
+
+                 }
+
+
+
+
+
+             }else{              //IP
+
+                 System.out.println("INTERVAL PATTERNS: \n");
+
+                 for (int j =0; j < databases.length; j++){
+                     db.readDB("../Normalized_data/benchmark/"+databases[j]+"_T.dat", ISbinary);
+                     System.out.println("Database: "+databases[j] );
+
+                     db.setDistinctValues();
+
+
+                     Evaluation e = new Evaluation();
+
+                     //System.out.println("IP: Soulet diversity: " + e.eqClassDiversityIP(100000,db));
+                     //System.out.println("Evolution frequence: ");
+                     //e.evolutionFrequenceIP(10000, db, "results/Frequency/IP/"+ databases[j] + "_frequency_Evolution_IP.csv");
+                     //System.out.println("\n Done ");
+
+                     //System.out.println("Jaccard diversity: ");
+                     //e.jaccardDiversityIP(1000, db,"results/Jaccard/IP/"+ databases[j] +"_Jaccard_Evolution_IP.csv");
+                     //System.out.println(" \n Done");
+
+                     //e.evolutionTempsCPUIP(1000, db,"results/CpuEvolution/IP/"+ databases[j] +"_CPU_Evolution_IP.csv");
+
+
+
+                 }
+
+
+
+
+             }
+
+
+
+
+
+
+
+
+         }
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public void jaccardDiversitytemset(int k, Database db){
+            System.out.println("Jaccard diversity: ");
+
+           //todo: a  et valider
+            ArrayList<Itemset> ItemsetList= new ArrayList<>();
+            ArrayList<Double> MeanJaccardScore= new ArrayList<>();
+
+            ItemsetSampling sampling = new ItemsetSampling(db);
+
+            for(int i=0; i <k; i++  ){
+                Itemset curritemset =  sampling.drawItemset();
+                if(ItemsetList.isEmpty()){
+                    ItemsetList.add(curritemset);
+                }else{
+                    double localmean= 0.0;
+                    for(Itemset itemset: ItemsetList){
+                        localmean += jaccard(curritemset, itemset);
+                    }
+                    MeanJaccardScore.add(localmean/ ItemsetList.size() );
+                    ItemsetList.add(curritemset);
+                }
+            }
+            System.out.println("MINIMUM Jaccard Moyen: "+Collections.min(MeanJaccardScore));
+            System.out.println("MAXIMUM Jaccard Moyen: "+Collections.max(MeanJaccardScore));
+
+            System.out.println("Liste des moyennes jaccard: ");
+            for(int i= 0;i < MeanJaccardScore.size();i++ ){
+                System.out.println("k= "+i +": "+MeanJaccardScore.get(i) +",");
+            }
+            System.out.println("\n");
+
+        }
+
+
+
+
+
+    public void jaccardDiversityIP(int k, Database db){
+
+        ArrayList<IP> IPList= new ArrayList<>();
+        ArrayList<Double> MeanJaccardScore= new ArrayList<>();
+
+        FIPS sampling = new FIPS(db);
+
+        for(int i=0; i <k; i++  ){
+            IP currip =  sampling.drawIP();
+            if(IPList.isEmpty()){
+                IPList.add(currip);
+            }else{
+                double localmean= 0.0;
+                for(IP ip: IPList){
+                    localmean += jaccard(currip, ip);
+                }
+                MeanJaccardScore.add(localmean/ IPList.size() );
+                IPList.add(currip);
+            }
+        }
+        //System.out.println("MINIMUM Jaccard Moyen: "+Collections.min(MeanJaccardScore));
+        //System.out.println("MAXIMUM Jaccard Moyen: "+Collections.max(MeanJaccardScore));
+
+        System.out.println("Liste des moyennes jaccard: ");
+        for(int i= 0;i < MeanJaccardScore.size();i++ ){
+            System.out.println("k= "+i +": "+MeanJaccardScore.get(i) +",");
+        }
+        System.out.println("\n");
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*    public void evolutionFrequenceItemset(int k, Database db){
+
+        //todo: a  valider
+        ArrayList<Integer> freq = new ArrayList<>();
+        ItemsetSampling sampling = new ItemsetSampling(db);
+        System.out.println("Évolution fréquences");
+        for(int i =0; i < k; i++){
+            Itemset itemset =  sampling.drawItemset();
+            freq.add(itemset.getCoverage().size());
+            System.out.print(itemset.getCoverage().size()+", ");
+        }
+    }*/
+
+
+
+/*   public void evolutionFrequenceIP(int k, Database db){
+       ArrayList<Integer> freq = new ArrayList<>();
+       FIPS sampling = new FIPS(db);
+       for(int i =0; i < k; i++){
+           IP ip =  sampling.drawIP();
+           freq.add(ip.getCoverage().size());
+           System.out.println(ip.getCoverage().size());
+       }
+   }*/
+
+
+
+
+/*public IP drawIP(){             //correct ??
+        *//*
+         * Method that draws an interval pattern proportional to fréquency
+         * *//*
+
+        int drawnObject1 =  DrawObject();           // draw object proportionally to w(g)
+        ArrayList<Integer> resultingIP= new ArrayList<>();
+
+        for(int m=0; m < dataset.getColumnsNumber();m++){
+            int value= dataset.getObject(drawnObject1).get(m);
+            int valLB= -1;
+            int valUB=-1;
+
+            //draw a lower bound
+            for(int i =0; i < value; i++ ){
+                if(Math.random()>0.5f){
+                    valLB = dataset.distinctValues.get(m).get(i);
+                    break;
+                }
+            }
+            if(valLB ==-1){
+                valLB= value;
+            }
+
+            //draw an upper bound
+            for(int i =dataset.distinctValues.get(m).size()-1; i > value; i-- ){
+                if(Math.random()>0.5f){
+                    valUB = dataset.distinctValues.get(m).get(i);
+                    break;
+                }
+            }
+            if(valUB ==-1){
+                valUB= value;
+            }
+
+            resultingIP.add(valLB);
+            resultingIP.add(valUB);
+        }
+
+        return new IP(resultingIP,dataset);
+    }*/

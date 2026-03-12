@@ -1,0 +1,3 @@
+{constraintNumber=1, resultCPUTime=0.0037, query=[InfEq(m':  6, v': 445)], resultNbDraws=155.0}
+{constraintNumber=2, resultCPUTime=0.0525, query=[InfEq(m':  6, v': 445), InfEq(m':  5, v': 115)], resultNbDraws=2291.4}
+{constraintNumber=3, resultCPUTime=3.21, query=[InfEq(m':  6, v': 445), InfEq(m':  5, v': 115), Inf(m':  4, v': 46)], resultNbDraws=140989.4}

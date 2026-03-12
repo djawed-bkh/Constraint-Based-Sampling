@@ -1,0 +1,4 @@
+{constraintNumber=1, resultCPUTime=0.1762, query=[Inf(m':  0, v': 4)], resultNbDraws=9053.6}
+{constraintNumber=2, resultCPUTime=0.3087, query=[Inf(m':  0, v': 4), Inf(m':  2, v': 20)], resultNbDraws=15517.1}
+{constraintNumber=3, resultCPUTime=1.0660999999999998, query=[Inf(m':  0, v': 4), Inf(m':  2, v': 20), Exc(m':  1, v': 0)], resultNbDraws=54151.4}
+{constraintNumber=4, resultCPUTime=0.9815, query=[Inf(m':  0, v': 4), Inf(m':  2, v': 20), Exc(m':  1, v': 0), Inf(m':  0, v': 29)], resultNbDraws=49506.3}

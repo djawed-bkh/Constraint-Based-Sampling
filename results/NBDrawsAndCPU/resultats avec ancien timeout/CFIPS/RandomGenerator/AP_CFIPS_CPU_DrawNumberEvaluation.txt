@@ -1,0 +1,10 @@
+{constraintNumber=1, resultCPUTime=0.013699999999999999, query=[Sup(m':  2, v': 17)], resultNbDraws=100.0}
+{constraintNumber=2, resultCPUTime=0.0169, query=[Sup(m':  2, v': 17), Exc(m':  1, v': 82)], resultNbDraws=100.0}
+{constraintNumber=3, resultCPUTime=0.0188, query=[Sup(m':  2, v': 17), Exc(m':  1, v': 82), InfEq(m':  2, v': 68)], resultNbDraws=100.0}
+{constraintNumber=4, resultCPUTime=0.0188, query=[Sup(m':  2, v': 17), Exc(m':  1, v': 82), InfEq(m':  2, v': 68), Inc(m':  0, v': 112)], resultNbDraws=100.0}
+{constraintNumber=5, resultCPUTime=0.013900000000000001, query=[Sup(m':  2, v': 17), Exc(m':  1, v': 82), InfEq(m':  2, v': 68), Inc(m':  0, v': 112), Inf(m':  0, v': 120)], resultNbDraws=100.0}
+{constraintNumber=6, resultCPUTime=0.0054, query=[Sup(m':  2, v': 17), Exc(m':  1, v': 82), InfEq(m':  2, v': 68), Inc(m':  0, v': 112), Inf(m':  0, v': 120), Inf(m':  4, v': 94)], resultNbDraws=100.0}
+{constraintNumber=7, resultCPUTime=0.0064, query=[Sup(m':  2, v': 17), Exc(m':  1, v': 82), InfEq(m':  2, v': 68), Inc(m':  0, v': 112), Inf(m':  0, v': 120), Inf(m':  4, v': 94), Inf(m':  3, v': 5)], resultNbDraws=100.0}
+{constraintNumber=8, resultCPUTime=0.0052, query=[Sup(m':  2, v': 17), Exc(m':  1, v': 82), InfEq(m':  2, v': 68), Inc(m':  0, v': 112), Inf(m':  0, v': 120), Inf(m':  4, v': 94), Inf(m':  3, v': 5), Inf(m':  0, v': 116)], resultNbDraws=100.0}
+{constraintNumber=9, resultCPUTime=0.0056, query=[Sup(m':  2, v': 17), Exc(m':  1, v': 82), InfEq(m':  2, v': 68), Inc(m':  0, v': 112), Inf(m':  0, v': 120), Inf(m':  4, v': 94), Inf(m':  3, v': 5), Inf(m':  0, v': 116), Exc(m':  1, v': 74)], resultNbDraws=100.0}
+{constraintNumber=10, resultCPUTime=0.0075, query=[Sup(m':  2, v': 17), Exc(m':  1, v': 82), InfEq(m':  2, v': 68), Inc(m':  0, v': 112), Inf(m':  0, v': 120), Inf(m':  4, v': 94), Inf(m':  3, v': 5), Inf(m':  0, v': 116), Exc(m':  1, v': 74), Inc(m':  0, v': 8)], resultNbDraws=100.0}

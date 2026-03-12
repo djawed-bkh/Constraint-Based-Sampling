@@ -1,0 +1,81 @@
+import java.util.ArrayList;
+import java.util.concurrent.*;
+
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main {
+
+        public static void main(String[] args) {
+            // Initialize the database with empty lists
+            Database db = new Database(new ArrayList<>(), new ArrayList<>());
+
+
+            //String [] databases={"AP","balance-scale", "BK", "cancer", "CH", "diabetes", "glass","heart", "Iris","NT", "LW","sonar", "yacht" };
+            String[] databases = {"balance-scale"};
+
+
+            for (String database : databases) {
+
+                db.readDB("../Normalized_data/benchmark/" + database + "_T.dat");
+                System.out.println("\n");
+                System.out.println("Database: " + database);
+                //db.showDB();
+                //db.getDBStatistics();
+
+
+
+                // for testing:
+                //FIPS ips = new FIPS(db);
+                //IP ip= ips.drawIP();
+             /*   for (int i = 0; i < 10; i++) {
+                    RandomIPSampling rips = new RandomIPSampling(db);
+                    IP ip = rips.drawIP();
+                    ip.showIP();
+                    ip.showCoverage();
+                    //System.out.println("volume: "+ip.getVolume());
+
+                }*/
+
+
+                Evaluation e = new Evaluation();
+
+                e.constrainedPlausibilityIP(10000,10,db,0.4f,0.6f);
+                e.constrainedPlausibilityRandomIP(10000,10,db,0.40f,0.50f);
+
+                System.out.println("Totaly random IP: Percentage of empty coverage "+e.EvaluationEmptyCoverage(10000,db));
+
+                System.out.println("Plausibilité for Frequency IP: "+e.PlausibilityFrequencyIP(10000,10,db));
+                //System.out.println("Plausibilité for Frequency Random IP: "+e.PlausibilityFrequencyRandIP(10000,10,db));
+
+
+                //System.out.println("Plausibilité for density IP: "+e.PlausibilityDensityIP(10000,10,db));
+                //System.out.println("Plausibilité for density Random IP: "+e.PlausibilityDensityRandomIP(10000,10,db));
+
+                //System.out.println("IP: Diversité soulet: "+e.eqClassDiversityIP(100000, db));
+                //System.out.println("Rand IP: Diversité soulet: "+e.eqClassDiversityRandomIP(100000, db));
+
+                //e.evolutionFrequenceIP(500,db,"results/Frequency/IP/"+database+"_frequency_Evolution_IP.csv");
+                //e.evolutionFrequenceRandomIP(500,db,"results/Frequency/RandomIP/"+database+"_frequency_Evolution_RandomIP.csv");
+
+                //e.evolutionTempsCPUClosedIP(500, db,"results/CpuEvolution/Closed_IP/"+ database +"_CPU_Evolution_Closed_IP.csv");
+                //e.evolutionTempsCPURandomClosedIP(500, db,"results/CpuEvolution/Closed_Random_IP/"+ database +"_CPU_Evolution_Random_Closed_IP.csv");
+
+                //e.evolutionTempsCPUIP(500, db,"results/CpuEvolution/IP/"+ database +"_CPU_Evolution_IP.csv");
+                //e.evolutionTempsCPURandomIP(500, db,"results/CpuEvolution/RandomIP/"+ database +"_CPU_Evolution_Random_IP.csv");
+                //e.evolutionTempsCPUTotalyRandomIP(500, db,"results/CpuEvolution/TotalyRandomIP/"+ database +"_CPU_Evolution_Totaly_Random_IP.csv");
+
+                //e.jaccardCDFIP(500,db,"results/JaccardCDF/IP/"+ database +"_JaccardCDF_IP.csv" );
+                //e.jaccardCDFRandomIP(500,db,"results/JaccardCDF/RandomIP/"+ database +"_JaccardCDF_Random_IP.csv" );
+
+                //e.evolutionVolumeIP(500,db,"results/Volume/IP/"+ database +"_Volume_IP.csv" );
+                //e.evolutionVolumeRandIP(500,db,"results/Volume/RandIP/"+ database +"_Volume_Rand_IP.csv" );
+
+                //e.TempsCPUIP(1000,db);
+                //e.TempsCPURandomIP(100000,db);
+
+            }
+
+
+        }
+
+}

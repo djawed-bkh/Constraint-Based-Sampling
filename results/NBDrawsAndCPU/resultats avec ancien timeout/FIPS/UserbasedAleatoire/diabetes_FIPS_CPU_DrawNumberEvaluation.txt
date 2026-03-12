@@ -1,0 +1,2 @@
+{constraintNumber=1, resultCPUTime=0.15769999999999998, query=[InfEq(m':  3, v': 14)], resultNbDraws=6931.2}
+{constraintNumber=2, resultCPUTime=9.789299999999999, query=[InfEq(m':  3, v': 14), InfEq(m':  6, v': 150)], resultNbDraws=426305.7}
